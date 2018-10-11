@@ -185,6 +185,7 @@ final class PostProcessorRegistrationDelegate {
 		beanFactory.clearMetadataCache();
 	}
 
+	/**对具所有实现BeanPostProcessor的类针对是否实现PriorityOrdered和Ordered接口排序*/
 	public static void registerBeanPostProcessors(
 			ConfigurableListableBeanFactory beanFactory, AbstractApplicationContext applicationContext) {
 

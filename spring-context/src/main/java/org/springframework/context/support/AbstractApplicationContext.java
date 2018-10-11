@@ -517,19 +517,24 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
+			// spring容器由通用抽象子类实现
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
+			// 初始化设置系统默认的组件，如BeanPostProcessor等
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				// 子组件可选择性重写该方法以达到自己的目的，
+				// 如web可重写加入ServletContext的BeanPostProcessor
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				// 对具所有实现BeanPostProcessor的类针对是否实现PriorityOrdered和Ordered接口进行排序
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -539,6 +544,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				initApplicationEventMulticaster();
 
 				// Initialize other special beans in specific context subclasses.
+				// 扩展点，初始化其他默认部件到容器中
 				onRefresh();
 
 				// Check for listener beans and register them.
@@ -594,6 +600,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment
+		// 扩展点，留给子类实现
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable
@@ -663,6 +670,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Register default environment beans.
+		// 这些属性都可能在第一步prepareRefresh中设置了，所以需要判断
 		if (!beanFactory.containsLocalBean(ENVIRONMENT_BEAN_NAME)) {
 			beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment());
 		}
@@ -701,6 +709,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	/**
+	 * 对具所有实现BeanPostProcessor的类针对是否实现PriorityOrdered和Ordered接口排序
 	 * Instantiate and invoke all registered BeanPostProcessor beans,
 	 * respecting explicit order if given.
 	 * <p>Must be called before any instantiation of application beans.
@@ -1310,6 +1319,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	//---------------------------------------------------------------------
 	// Implementation of ResourcePatternResolver interface
+	// 可能是PathMatchingResourcePatternResolver
 	//---------------------------------------------------------------------
 
 	@Override
