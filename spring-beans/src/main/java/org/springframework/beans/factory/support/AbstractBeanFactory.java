@@ -291,10 +291,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 
 			try {
+				// 将beanName下的父类BeanDefinition递归找出并覆盖其中声明的方法，
+				// 并组合成一个RootBeanDefinition
 				final RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
 				checkMergedBeanDefinition(mbd, beanName, args);
 
 				// Guarantee initialization of beans that the current bean depends on.
+				// 这个bean实例化前需要实例化的bean
 				String[] dependsOn = mbd.getDependsOn();
 				if (dependsOn != null) {
 					for (String dep : dependsOn) {
@@ -1147,10 +1150,12 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 */
 	protected void initBeanWrapper(BeanWrapper bw) {
 		bw.setConversionService(getConversionService());
+		// 将常用的Editor设置进registry（beanWrapper）中，同时将IOC中的Editor注册到beanWrapper中
 		registerCustomEditors(bw);
 	}
 
 	/**
+	 * 将常用的Editor设置进registry（beanWrapper）中，同时将IOC中的Editor注册到beanWrapper中
 	 * Initialize the given PropertyEditorRegistry with the custom editors
 	 * that have been registered with this BeanFactory.
 	 * <p>To be called for BeanWrappers that will create and populate bean
@@ -1167,6 +1172,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		if (!this.propertyEditorRegistrars.isEmpty()) {
 			for (PropertyEditorRegistrar registrar : this.propertyEditorRegistrars) {
 				try {
+					// 将常用的Editor设置进registry（beanWrapper）中
 					registrar.registerCustomEditors(registry);
 				}
 				catch (BeanCreationException ex) {
