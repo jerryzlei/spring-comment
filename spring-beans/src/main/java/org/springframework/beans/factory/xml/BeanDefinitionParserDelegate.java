@@ -406,6 +406,7 @@ public class BeanDefinitionParserDelegate {
 	}
 
 	/**
+	 * 转化ele为AbstractBeanDefinition、beanName和aliases并封装进BeanDefinitionHolder
 	 * Parses the supplied {@code <bean>} element. May return {@code null}
 	 * if there were errors during parse. Errors are reported to the
 	 * {@link org.springframework.beans.factory.parsing.ProblemReporter}.
@@ -434,6 +435,7 @@ public class BeanDefinitionParserDelegate {
 			checkNameUniqueness(beanName, aliases, ele);
 		}
 
+		// 转化<bean>标签下的属性到beanDefinition中
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
 		if (beanDefinition != null) {
 			if (!StringUtils.hasText(beanName)) {
@@ -512,8 +514,10 @@ public class BeanDefinitionParserDelegate {
 		}
 
 		try {
+			// 该步只设置了beanClass和parentName
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
+			// 该步转化了全部配置node
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
@@ -841,10 +845,13 @@ public class BeanDefinitionParserDelegate {
 				error("Multiple 'property' definitions for property '" + propertyName + "'", ele);
 				return;
 			}
+			// 返回RuntimeBeanReference(name后对应'ref') 或者 TypedStringValue(name后对应'value')
 			Object val = parsePropertyValue(ele, bd, propertyName);
 			PropertyValue pv = new PropertyValue(propertyName, val);
+			// 将meta属性设置进PropertyValue中
 			parseMetaElements(ele, pv);
 			pv.setSource(extractSource(ele));
+			// 最终将属性设置进BeanDefinition
 			bd.getPropertyValues().addPropertyValue(pv);
 		}
 		finally {

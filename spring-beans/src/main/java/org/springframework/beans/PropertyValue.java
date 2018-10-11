@@ -44,6 +44,7 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 
 	private final String name;
 
+	/**注册BeanDefinition时RuntimeBeanReference(name后对应'ref') 或者 TypedStringValue(name后对应'value')*/
 	@Nullable
 	private final Object value;
 
