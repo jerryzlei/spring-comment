@@ -236,12 +236,14 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	public void setPropertyValue(String propertyName, @Nullable Object value) throws BeansException {
 		AbstractNestablePropertyAccessor nestedPa;
 		try {
+			// 判断propertyName是否包含'['或者']'，如果不包含，返回beanWrapper本身
 			nestedPa = getPropertyAccessorForPropertyPath(propertyName);
 		}
 		catch (NotReadablePropertyException ex) {
 			throw new NotWritablePropertyException(getRootClass(), this.nestedPath + propertyName,
 					"Nested property in path '" + propertyName + "' does not exist", ex);
 		}
+		// 无嵌套getFinalPath(nestedPa, propertyName)返回propertyName
 		PropertyTokenHolder tokens = getPropertyNameTokens(getFinalPath(nestedPa, propertyName));
 		nestedPa.setPropertyValue(tokens, new PropertyValue(propertyName, value));
 	}
@@ -274,6 +276,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 		if (tokens.keys != null) {
 			processKeyedProperty(tokens, pv);
 		}
+		// 非嵌套属性keys为null
 		else {
 			processLocalProperty(tokens, pv);
 		}
@@ -948,7 +951,9 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 				}
 			}
 		}
+		// 非嵌套属性构造方法直接传入propertyName
 		PropertyTokenHolder tokens = new PropertyTokenHolder(actualName != null ? actualName : propertyName);
+		// 非嵌套属性不进入该方法
 		if (!keys.isEmpty()) {
 			tokens.canonicalName += PROPERTY_KEY_PREFIX +
 					StringUtils.collectionToDelimitedString(keys, PROPERTY_KEY_SUFFIX + PROPERTY_KEY_PREFIX) +

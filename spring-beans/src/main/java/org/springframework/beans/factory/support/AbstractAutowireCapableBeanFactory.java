@@ -577,6 +577,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Initialize the bean instance.
+		// 引用指向BeanWrapper的wrappedObject，在populateBean(beanName, mbd, instanceWrapper) 方法后为注入成功后的Object;
 		Object exposedObject = bean;
 		try {
 			// 填充bean内内部引用属性，将mbd中的pvs值转化后设置进instanceWrapper
