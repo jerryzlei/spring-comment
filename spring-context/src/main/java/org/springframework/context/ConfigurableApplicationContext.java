@@ -111,6 +111,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	void setEnvironment(ConfigurableEnvironment environment);
 
 	/**
+	 * ConfigurableEnvironment是系统默认设置的StandardEnvironment
 	 * Return the {@code Environment} for this application context in configurable
 	 * form, allowing for further customization.
 	 * @since 3.1

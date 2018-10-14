@@ -435,7 +435,7 @@ public class BeanDefinitionParserDelegate {
 			checkNameUniqueness(beanName, aliases, ele);
 		}
 
-		// 转化<bean>标签下的属性到beanDefinition中
+		// 转化<bean>标签及以下的属性到beanDefinition中
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
 		if (beanDefinition != null) {
 			if (!StringUtils.hasText(beanName)) {
@@ -517,7 +517,7 @@ public class BeanDefinitionParserDelegate {
 			// 该步只设置了beanClass和parentName
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
-			// 该步转化了全部配置node
+			// 该步转化了class级别的所有非常见属性
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
