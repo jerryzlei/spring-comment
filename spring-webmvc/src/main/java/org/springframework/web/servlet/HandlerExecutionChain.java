@@ -40,6 +40,7 @@ public class HandlerExecutionChain {
 
 	private static final Log logger = LogFactory.getLog(HandlerExecutionChain.class);
 
+	/** 据说是Controller对象*/
 	private final Object handler;
 
 	@Nullable

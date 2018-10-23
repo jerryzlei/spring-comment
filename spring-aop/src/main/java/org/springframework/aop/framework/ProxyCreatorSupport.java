@@ -95,6 +95,7 @@ public class ProxyCreatorSupport extends AdvisedSupport {
 
 
 	/**
+	 * 返回一个JdkDynamicAopProxy或者ObjenesisCglibAopProxy 其中的advised参数就是this
 	 * Subclasses should call this to get a new AOP proxy. They should <b>not</b>
 	 * create an AOP proxy with {@code this} as an argument.
 	 */

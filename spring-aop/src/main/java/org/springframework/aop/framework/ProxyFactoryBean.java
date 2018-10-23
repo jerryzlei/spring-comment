@@ -102,6 +102,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	/** 看配置应该是目标的name*/
 	@Nullable
 	private String[] interceptorNames;
 

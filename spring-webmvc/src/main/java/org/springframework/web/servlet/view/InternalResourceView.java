@@ -144,6 +144,7 @@ public class InternalResourceView extends AbstractUrlBasedView {
 		exposeHelpers(request);
 
 		// Determine the path for the request dispatcher.
+		// 获取视图路径
 		String dispatcherPath = prepareForRendering(request, response);
 
 		// Obtain a RequestDispatcher for the target resource (typically a JSP).
