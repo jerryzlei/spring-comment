@@ -1019,7 +1019,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				// Determine handler adapter for the current request.
-				// 传入的是Controller
+				// HandlerMethod对象，包装了@Controller的bean和将要执行的method
 				HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
 
 				// Process last-modified header, if supported by the handler.

@@ -40,7 +40,7 @@ public class HandlerExecutionChain {
 
 	private static final Log logger = LogFactory.getLog(HandlerExecutionChain.class);
 
-	/** 据说是Controller对象*/
+	/** HandlerMethod对象，包装了@Controller的bean和将要执行的method对象。 */
 	private final Object handler;
 
 	@Nullable

@@ -116,18 +116,22 @@ class ConfigurationClassParser {
 
 	private final Log logger = LogFactory.getLog(getClass());
 
+	/** 初始化为ConfigurationClassPostProcessor. */
 	private final MetadataReaderFactory metadataReaderFactory;
 
 	private final ProblemReporter problemReporter;
 
 	private final Environment environment;
 
+	/** 初始化为DefaultResourceLoader. */
 	private final ResourceLoader resourceLoader;
 
 	private final BeanDefinitionRegistry registry;
 
+	/** 初始化为ComponentScanAnnotationParser. */
 	private final ComponentScanAnnotationParser componentScanParser;
 
+	/** 初始化为ConditionEvaluator. */
 	private final ConditionEvaluator conditionEvaluator;
 
 	private final Map<ConfigurationClass, ConfigurationClass> configurationClasses = new LinkedHashMap<>();

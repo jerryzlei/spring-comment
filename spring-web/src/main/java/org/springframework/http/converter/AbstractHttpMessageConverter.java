@@ -81,7 +81,7 @@ public abstract class AbstractHttpMessageConverter<T> implements HttpMessageConv
 	protected AbstractHttpMessageConverter(MediaType... supportedMediaTypes) {
 		setSupportedMediaTypes(Arrays.asList(supportedMediaTypes));
 	}
-
+	OptionalValidatorFactoryBean
 	/**
 	 * Construct an {@code AbstractHttpMessageConverter} with a default charset and
 	 * multiple supported media types.

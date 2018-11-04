@@ -79,7 +79,13 @@ final class InstantiationModelAwarePointcutAdvisorImpl
 	@Nullable
 	private Boolean isAfterAdvice;
 
-
+	/** @param declaredPointcut 包装了参数和Class对象
+	 *  @param aspectJAdviceMethod 切面具体方法
+	 *  @param aspectJAdvisorFactory  ReflectiveAspectJAdvisorFactory
+	 *  @param aspectInstanceFactory BeanFactoryAspectInstanceFactory
+	 *  @param declarationOrder 排序后的方法加入advisors的顺序
+	 *  @param aspectName 切面名称
+	 * */
 	public InstantiationModelAwarePointcutAdvisorImpl(AspectJExpressionPointcut declaredPointcut,
 			Method aspectJAdviceMethod, AspectJAdvisorFactory aspectJAdvisorFactory,
 			MetadataAwareAspectInstanceFactory aspectInstanceFactory, int declarationOrder, String aspectName) {
@@ -110,6 +116,7 @@ final class InstantiationModelAwarePointcutAdvisorImpl
 			// A singleton aspect.
 			this.pointcut = this.declaredPointcut;
 			this.lazy = false;
+			// 初始化参数-排除joinpoint参数，并设置setParameterNames和setParameterTypes到pointCut中
 			this.instantiatedAdvice = instantiateAdvice(this.declaredPointcut);
 		}
 	}
