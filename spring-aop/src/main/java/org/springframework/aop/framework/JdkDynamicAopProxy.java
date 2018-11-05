@@ -196,7 +196,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 
 			// Get the interception chain for this method.
 			// 取出cofig（this）配置，将里面的advisors取出遍历出对应的advices，
-			// 并包装为MethodInterceptor的list返回
+			// 并包装为MethodInterceptor的list返回。isRuntime&&isPointCutAdvisor 就包装为DynamicInterceptionAdvice
 			List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
 
 			// Check whether we have any advice. If we don't, we can fallback on direct
