@@ -576,6 +576,7 @@ public abstract class ReflectionUtils {
 		// Keep backing up the inheritance hierarchy.
 		Method[] methods = getDeclaredMethods(clazz);
 		for (Method method : methods) {
+			// mf 不是桥接&&不是Object.class匹配&&不是人造的匹配为true
 			if (mf != null && !mf.matches(method)) {
 				continue;
 			}

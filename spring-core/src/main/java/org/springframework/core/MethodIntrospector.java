@@ -71,6 +71,8 @@ public final class MethodIntrospector {
 
 			ReflectionUtils.doWithMethods(currentHandlerType, method -> {
 				Method specificMethod = ClassUtils.getMostSpecificMethod(method, targetClass);
+				// 外层这个方法再为method找到桥接方法后调用，下面的方法调用
+				// 为上层传入的函数式方法，具体为将method与useType结合起来创建RequestMappingInfo
 				T result = metadataLookup.inspect(specificMethod);
 				if (result != null) {
 					Method bridgedMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);

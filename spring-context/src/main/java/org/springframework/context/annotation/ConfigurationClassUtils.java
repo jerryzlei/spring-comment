@@ -111,10 +111,11 @@ abstract class ConfigurationClassUtils {
 				return false;
 			}
 		}
-
+		// 注解上是否含有@Configuration
 		if (isFullConfigurationCandidate(metadata)) {
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 		}
+		// 注解上是否含有@Component、@ComponentScan、@Import、@ImportSource、@Bean
 		else if (isLiteConfigurationCandidate(metadata)) {
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 		}
