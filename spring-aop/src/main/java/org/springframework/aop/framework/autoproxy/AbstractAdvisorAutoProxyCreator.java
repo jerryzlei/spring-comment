@@ -92,9 +92,10 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	 * @see #extendAdvisors
 	 */
 	protected List<Advisor> findEligibleAdvisors(Class<?> beanClass, String beanName) {
-		// 这里找出所有带有@Aspect注解的类
+		// 这里找出所有带有@Aspect注解的类和直接注入的Advisor类
 		// @Aspect的该步返回的是InstantiationModelAwarePointcutAdvisorImpl
 		List<Advisor> candidateAdvisors = findCandidateAdvisors();
+		// 找出与beanName匹配到的Advisor以便下一步进行包装
 		List<Advisor> eligibleAdvisors = findAdvisorsThatCanApply(candidateAdvisors, beanClass, beanName);
 		// 在list的0处加了ExposeInvocationInterceptor.ADVISOR
 		extendAdvisors(eligibleAdvisors);
@@ -111,6 +112,7 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	 */
 	protected List<Advisor> findCandidateAdvisors() {
 		Assert.state(this.advisorRetrievalHelper != null, "No BeanFactoryAdvisorRetrievalHelper available");
+		// 在factorybean中拿到Advisor.class的集合
 		return this.advisorRetrievalHelper.findAdvisorBeans();
 	}
 
